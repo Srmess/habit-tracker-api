@@ -1,9 +1,7 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
-use Rector\Config\Level\CodeQualityLevel;
-use Rector\Config\Level\DeadCodeLevel;
 use Rector\Config\RectorConfig;
 
 return RectorConfig::configure()
