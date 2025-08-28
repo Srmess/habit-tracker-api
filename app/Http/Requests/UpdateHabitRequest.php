@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 
-class StoreHabitRequest extends FormRequest
+class UpdateHabitRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,14 +24,5 @@ class StoreHabitRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'min:3', 'max:255']
         ];
-    }
-
-    /**
-     * Handle a passed validation attempt.
-     * @return void
-     */
-    protected function passedValidation(): void
-    {
-        $this->merge(['uuid' => Str::uuid()]);
     }
 }

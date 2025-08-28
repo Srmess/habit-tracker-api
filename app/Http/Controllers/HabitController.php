@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHabitRequest;
+use App\Http\Requests\UpdateHabitRequest;
 use App\Http\Resources\HabitResource;
 use App\Models\Habit;
 use Illuminate\Http\Request;
@@ -24,9 +25,9 @@ class HabitController extends Controller
      */
     public function store(StoreHabitRequest $request)
     {
-        $data = $request->only(['title', 'uuid']);
+        $payload = $request->only(['title', 'uuid']);
 
-        $habit = Habit::create(array_merge($data, ['user_id' => 11]));
+        $habit = Habit::create(array_merge($payload, ['user_id' => 11]));
 
         return HabitResource::make($habit);
     }
@@ -42,9 +43,13 @@ class HabitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Habit $habit)
+    public function update(UpdateHabitRequest $request, Habit $habit)
     {
-        //
+        $payload = $request->only(['title', 'uuid']);
+
+        $habit->update($payload);
+
+        return HabitResource::make($habit);
     }
 
     /**
