@@ -12,7 +12,9 @@ class HabitController extends Controller
 {
     public function index()
     {
-        $habits = Habit::all();
+        $habits = Habit::query()
+            ->with(['logs', 'user'])
+            ->get();
 
         return HabitResource::collection($habits);
     }
