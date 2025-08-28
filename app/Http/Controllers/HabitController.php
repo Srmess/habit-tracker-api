@@ -6,14 +6,19 @@ use App\Http\Requests\StoreHabitRequest;
 use App\Http\Requests\UpdateHabitRequest;
 use App\Http\Resources\HabitResource;
 use App\Models\Habit;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class HabitController extends Controller
 {
     public function index()
     {
+        $hasLogs = str(request()->string('with', ''))->contains('logs');
+        $hasUser = str(request()->string('with', ''))->contains('user');
+
         $habits = Habit::query()
-            ->with(['logs', 'user'])
+            ->when($hasLogs, fn(Builder $query) => $query->with('logs'))
+            ->when($hasUser, fn(Builder $query) => $query->with('user'))
             ->get();
 
         return HabitResource::collection($habits);
