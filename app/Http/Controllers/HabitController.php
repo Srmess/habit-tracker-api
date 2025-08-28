@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHabitRequest;
@@ -7,7 +9,6 @@ use App\Http\Requests\UpdateHabitRequest;
 use App\Http\Resources\HabitResource;
 use App\Models\Habit;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 
 class HabitController extends Controller
 {
@@ -17,8 +18,8 @@ class HabitController extends Controller
         $hasUser = str(request()->string('with', ''))->contains('user');
 
         $habits = Habit::query()
-            ->when($hasLogs, fn(Builder $query) => $query->with('logs'))
-            ->when($hasUser, fn(Builder $query) => $query->with('user'))
+            ->when($hasLogs, fn (Builder $query) => $query->with('logs'))
+            ->when($hasUser, fn (Builder $query) => $query->with('user'))
             ->get();
 
         return HabitResource::collection($habits);

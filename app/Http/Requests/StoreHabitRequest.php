@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -23,13 +25,12 @@ class StoreHabitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'min:3', 'max:255']
+            'title' => ['required', 'string', 'min:3', 'max:255'],
         ];
     }
 
     /**
      * Handle a passed validation attempt.
-     * @return void
      */
     protected function passedValidation(): void
     {
