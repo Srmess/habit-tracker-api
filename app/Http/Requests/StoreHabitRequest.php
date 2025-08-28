@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class StoreHabitRequest extends FormRequest
 {
@@ -24,5 +25,14 @@ class StoreHabitRequest extends FormRequest
         return [
             'title' => ['required', 'string']
         ];
+    }
+
+    /**
+     * Handle a passed validation attempt.
+     * @return void
+     */
+    protected function passedValidation(): void
+    {
+        $this->merge(['uuid' => Str::uuid()]);
     }
 }

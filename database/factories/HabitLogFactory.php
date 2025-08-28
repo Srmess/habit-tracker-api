@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Database\Factories;
 
@@ -21,6 +21,7 @@ class HabitLogFactory extends Factory
     {
         return [
             'habit_id'     => Habit::factory(),
+            'uuid' => fake()->uuid(),
             'completed_at' => fake()->dateTimeBetween('-1 year', 'now'),
         ];
     }

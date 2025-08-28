@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Database\Factories;
 
@@ -44,6 +44,7 @@ class HabitFactory extends Factory
 
         return [
             'user_id' => User::factory(),
+            'uuid' => fake()->uuid(),
             'title'   => fake()->randomElement($dailyHabits),
         ];
     }
