@@ -8,7 +8,6 @@ use App\Http\Requests\StoreHabitLogRequest;
 use App\Http\Resources\HabitLogResource;
 use App\Models\Habit;
 use App\Models\HabitLog;
-use Illuminate\Http\Request;
 
 class HabitLogController extends Controller
 {
@@ -35,13 +34,10 @@ class HabitLogController extends Controller
         //
     }
 
-    public function update(Request $request, HabitLog $habitLog): void
+    public function destroy(Habit $habit, HabitLog $log)
     {
-        //
-    }
+        $log->delete();
 
-    public function destroy(HabitLog $habitLog): void
-    {
-        //
+        return response()->noContent();
     }
 }
