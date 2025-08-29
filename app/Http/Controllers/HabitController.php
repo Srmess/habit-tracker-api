@@ -20,7 +20,7 @@ class HabitController extends Controller
         $habits = Habit::query()
             ->when($hasLogs, fn (Builder $query) => $query->with('logs'))
             ->when($hasUser, fn (Builder $query) => $query->with('user'))
-            ->get();
+            ->paginate();
 
         return HabitResource::collection($habits);
     }
