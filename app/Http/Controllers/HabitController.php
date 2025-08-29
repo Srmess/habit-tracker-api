@@ -27,9 +27,7 @@ class HabitController extends Controller
 
     public function store(StoreHabitRequest $request)
     {
-        $payload = $request->only(['title', 'uuid']);
-
-        $habit = Habit::create(array_merge($payload, ['user_id' => 11]));
+        $habit = Habit::create(array_merge($request->validated(), ['user_id' => 11]));
 
         return HabitResource::make($habit);
     }
@@ -41,9 +39,7 @@ class HabitController extends Controller
 
     public function update(UpdateHabitRequest $request, Habit $habit)
     {
-        $payload = $request->only(['title', 'uuid']);
-
-        $habit->update($payload);
+        $habit->update($request->validated());
 
         return HabitResource::make($habit);
     }
