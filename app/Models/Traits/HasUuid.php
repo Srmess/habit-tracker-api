@@ -12,11 +12,11 @@ trait HasUuid
     {
         parent::boot();
 
-        static::creating(function (self $log) {
-            $log->uuid = $log->uuid ?? (string) Str::uuid();
+        static::creating(function (self $log): void {
+            $log->uuid ??= (string) Str::uuid();
         });
 
-        static::updating(function (self $log) {
+        static::updating(function (self $log): void {
             if ($log->isDirty('uuid')) {
                 $log->uuid = $log->getOriginal('uuid');
             }

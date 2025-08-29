@@ -30,17 +30,17 @@ class HabitLogController extends Controller
         return HabitLogResource::make($log);
     }
 
-    public function show(HabitLog $habitLog)
+    public function show(HabitLog $habitLog): void
     {
         //
     }
 
-    public function update(Request $request, HabitLog $habitLog)
+    public function update(Request $request, HabitLog $habitLog): void
     {
         //
     }
 
-    public function destroy(HabitLog $habitLog)
+    public function destroy(HabitLog $habitLog): void
     {
         //
     }
