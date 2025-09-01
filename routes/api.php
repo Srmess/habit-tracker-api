@@ -7,10 +7,10 @@ use App\Http\Controllers\HabitLogController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::name('api.')->group(function () {
+Route::name('api.')->middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
-    })->middleware('auth:sanctum');
+    });
 
     Route::apiResource('habits', HabitController::class)
         ->scoped(['habit' => 'uuid']);

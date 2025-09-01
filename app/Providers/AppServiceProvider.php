@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +25,13 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::unguard();
         Model::preventLazyLoading(! app()->isProduction());
+
+        Password::defaults(function () {
+            if (app()->isProduction()) {
+                return Password::min(8)-> letters()->mixedCase()->numbers()->symbols();
+            }
+
+            return Password::min(4);
+        });
     }
 }
