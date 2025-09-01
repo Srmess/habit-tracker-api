@@ -17,7 +17,7 @@ return new class () extends Migration
         Schema::create('habits', function (Blueprint $table): void {
             $table->id();
             $table->string('uuid')->unique();
-            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->string('title');
             $table->timestamps();
         });

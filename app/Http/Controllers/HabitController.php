@@ -9,15 +9,25 @@ use App\Http\Requests\UpdateHabitRequest;
 use App\Http\Resources\HabitResource;
 use App\Models\Habit;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class HabitController extends Controller
+class HabitController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return [
+            new Middleware('can:own,habit', except:['index', 'store']),
+        ];
+    }
+
     public function index()
     {
         $hasLogs = str(request()->string('with', ''))->contains('logs');
         $hasUser = str(request()->string('with', ''))->contains('user');
 
         $habits = Habit::query()
+            ->where('user_id', '=', auth()->id())
             ->when($hasLogs, fn (Builder $query) => $query->with('logs'))
             ->when($hasUser, fn (Builder $query) => $query->with('user'))
             ->paginate();
@@ -27,7 +37,7 @@ class HabitController extends Controller
 
     public function store(StoreHabitRequest $request)
     {
-        $habit = Habit::create(array_merge($request->validated(), ['user_id' => 11]));
+        $habit = Habit::create(array_merge($request->validated(), ['user_id' => auth()->id()]));
 
         return HabitResource::make($habit);
     }
