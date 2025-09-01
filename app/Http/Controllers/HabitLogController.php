@@ -29,9 +29,15 @@ class HabitLogController extends Controller
         return HabitLogResource::make($log);
     }
 
-    public function show(HabitLog $habitLog): void
+    public function show(Habit $habit, HabitLog $log)
     {
-        //
+        request()->validate([
+            'with' => ['string', 'nullable', 'regex:/\b(?:logs|user)(?:.*\b(?:logs|user))?/i'],
+        ]);
+
+        return HabitLogResource::make(
+            $log->load(['habit'])
+        );
     }
 
     public function destroy(Habit $habit, HabitLog $log)

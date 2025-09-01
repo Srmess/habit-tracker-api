@@ -19,6 +19,10 @@ class HabitLogResource extends JsonResource
         return [
             'uuid'         => $this->uuid,
             'completed_at' => $this->completed_at,
+            'links'        => [
+                'self_destroy' => route('api.habits.logs.destroy', ['habit' => $this->habit->uuid, 'log' => $this->uuid]),
+                'habit'        => route('api.habits.show', ['habit' => $this->habit->uuid]),
+            ],
         ];
     }
 }
